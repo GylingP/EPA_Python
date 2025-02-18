@@ -41,8 +41,8 @@ def getClusterRoleBindings():
 def getRolesBindings():
     # 获取所有的 RoleBindings
     opts = K8sRequestOption(
-        Api="/apis/rbac.authorization.k8s.io/v1/rolebindings",
-        Method="GET"
+        api="/apis/rbac.authorization.k8s.io/v1/rolebindings",
+        method="GET"
     )
     resp = api_request(opts)
     
