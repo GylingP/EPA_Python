@@ -44,7 +44,7 @@ def getRolesBindings():
         api="/apis/rbac.authorization.k8s.io/v1/rolebindings",
         method="GET"
     )
-    resp = api_request(opts)
+    resp , _ = api_request(opts)
     
     if resp is None:
         return None
@@ -64,10 +64,10 @@ def getRolesBindings():
             subject=[]
         )
 
-        roleKind = roleBinding["role_ref"]["kind"]
+        roleKind = roleBinding["roleRef"]["kind"]
         if roleKind == "Role":
             newRoleBinding.roleRef = newRoleBinding.namespace + "/"
-        newRoleBinding.roleRef += roleBinding["role_ref"]["name"]
+        newRoleBinding.roleRef += roleBinding["roleRef"]["name"]
 
         if "subjects" in roleBinding:
             for sa in roleBinding["subjects"]:
