@@ -1,10 +1,10 @@
-from conf import read_conf
+from conf.conf import load_config
 from utils import get_sa_binding,check_sa_mounted,get_critical_sa
 import json
 import os
 
 print("reading conf.yaml")
-conf = read_conf()
+conf = load_config()
 print("scannning")
 
 sa_binding_map = {}

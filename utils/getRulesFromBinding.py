@@ -1,6 +1,6 @@
 import json
-from .req import K8sRequestOption, api_request
-from .structure import Rule
+from req import K8sRequestOption, api_request
+from structure import Rule
 
 def getRulesFromRole(role):
     # 根据角色类型构造 API 地址

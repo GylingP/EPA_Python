@@ -2,7 +2,7 @@ import os
 import yaml
 
 def load_config():
-    with open("conf.yaml", 'r') as f:
+    with open("./conf/conf.yaml", 'r') as f:
         # 加载配置文件
         config = yaml.safe_load(f)
 
