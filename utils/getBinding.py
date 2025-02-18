@@ -10,6 +10,8 @@ def getClusterRoleBindings():
     )
     resp = api_request(opts)
     
+    print(resp)
+
     if resp is None:
         return None
 
