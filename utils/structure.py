@@ -10,7 +10,7 @@ class Pod:
 
 
 class SA:
-    def __init__(self, is_mounted, name, sa_pod, permission=None, roles=None, role_bindings=None):
+    def __init__(self, name, is_mounted=False, sa_pod=None, permission=None, roles=None, role_bindings=None):
         self.is_mounted = is_mounted
         self.name = name  # The full name: namespace/name
         self.sa_pod = sa_pod  # Pod instance
