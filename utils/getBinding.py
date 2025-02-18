@@ -24,7 +24,7 @@ def getClusterRoleBindings():
         newClusterRoleBinding = RoleBinding(
             namespace="",
             name=clusterRoleBinding["metadata"]["name"],
-            roleRef=clusterRoleBinding["role_ref"]["name"],
+            role_ref=clusterRoleBinding["roleRef"]["name"],
             subject=[]
         )
 
