@@ -15,10 +15,10 @@ def getRulesFromRole(role):
         api += f"/clusterroles/{name}"
 
     opts = K8sRequestOption(
-        Api=api,
-        Method="GET"
+        api=api,
+        method="GET"
     )
-    resp = api_request(opts)
+    resp , _  = api_request(opts)
 
     if resp is None:
         return None
