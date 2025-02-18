@@ -60,7 +60,7 @@ def getRolesBindings():
         newRoleBinding = RoleBinding(
             namespace=roleBinding["metadata"]["namespace"],
             name=roleBinding["metadata"]["name"],
-            roleRef="",
+            role_ref="",
             subject=[]
         )
 
