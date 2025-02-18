@@ -8,9 +8,7 @@ def getClusterRoleBindings():
         api="/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
         method="GET"
     )
-    resp = api_request(opts)
-    
-    print(resp)
+    resp , _ = api_request(opts)
 
     if resp is None:
         return None
