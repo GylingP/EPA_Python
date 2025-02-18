@@ -1,6 +1,6 @@
 import json
-from req import K8sRequestOption, api_request
-from structure import RoleBinding
+from .req import K8sRequestOption, api_request
+from .structure import RoleBinding
 
 def getClusterRoleBindings():
     # 获取所有的 ClusterRoleBindings

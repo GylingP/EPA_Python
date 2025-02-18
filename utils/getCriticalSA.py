@@ -1,4 +1,4 @@
-from structure import CriticalSA
+from .structure import CriticalSA
 
 def get_critical_sa(SAs, controlled_node):
     result = []

@@ -1,4 +1,4 @@
-from getPods import get_pods
+from .getPods import get_pods
 
 def check_sa_mounted(sas):
     result = sas

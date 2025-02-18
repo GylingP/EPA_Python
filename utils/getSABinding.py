@@ -1,7 +1,7 @@
 from collections import defaultdict
-from getBinding import getClusterRoleBindings, getRolesBindings
-from getRulesFromBinding import getRulesFromRole
-from structure import SA
+from .getBinding import getClusterRoleBindings, getRolesBindings
+from .getRulesFromBinding import getRulesFromRole
+from .structure import SA
 
 def get_sa_binding():
     # 初始化字典

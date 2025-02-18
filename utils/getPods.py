@@ -1,5 +1,5 @@
-from req import api_request
-from structure import Pod
+from .req import api_request
+from .structure import Pod
 import json
 
 def get_pods():
