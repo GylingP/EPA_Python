@@ -15,6 +15,7 @@ def get_pods():
             raise ValueError("API request failed")
 
         # 假设返回的响应是 JSON 格式
+        print(resp)
         pods_data = json.loads(resp)
         pods = pods_data.get("items", [])
         pod_list = []
