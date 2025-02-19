@@ -52,10 +52,11 @@ def api_request(opts: K8sRequestOption):
         headers['Authorization'] = f"Bearer {token}"
 
     # Verify SSL/TLS certificate and skip verification if needed
-    # verify = os.getenv('VERIFY_SSL', 'false').lower() == 'true'
-    # if not verify:
-    #     session.verify = False
-    verify = False
+    verify = os.getenv('VERIFY_SSL', 'false').lower() == 'true'
+    if not verify:
+        session.verify = False
+
+    requests.packages.urllib3.disable_warnings()
 
     # Perform the HTTP request
     try:
