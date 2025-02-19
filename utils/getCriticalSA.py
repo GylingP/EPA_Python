@@ -24,7 +24,7 @@ def get_critical_sa(SAs, controlled_node):
             
             # 遍历角色的每个权限
             for k, v in role.items():
-                if sa.sa_pod.node_name== controlled_node:
+                if sa.sa_pod and sa.sa_pod.node_name== controlled_node:
                     critical_sa.in_node = True
 
                 raw_type = ""
