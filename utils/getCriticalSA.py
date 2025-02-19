@@ -9,8 +9,6 @@ def get_critical_sa(SAs, controlled_node):
         rolebind_flag_2 = 0
         clusterroleescalate_flag = 0
         roleescalate_flag = 0
-        
-        print(sa.namespace)
 
         # 创建 CriticalSA 实例
         critical_sa = CriticalSA(
@@ -18,9 +16,6 @@ def get_critical_sa(SAs, controlled_node):
             type=[],
             level="namespace",
             sa0=sa,
-            namespace=sa.namespace,
-            resource_name=sa.resource_name,
-            roles=[]
         )
         
         # 遍历 SA 的 Roles
