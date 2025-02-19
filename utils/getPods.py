@@ -25,7 +25,7 @@ def get_pods():
                 namespace=pod["metadata"]["namespace"],
                 name=pod["metadata"]["name"],
                 uid=pod["metadata"]["uid"],
-                node_name=pod["spec"]["containers"]["nodeName"],
+                node_name=pod["spec"]["nodeName"],
                 service_account=pod["spec"].get("serviceAccountName", ""),
                 controll_by=[]
             )
