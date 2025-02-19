@@ -76,5 +76,5 @@ def getRolesBindings():
                 newRoleBinding.subject.append(f"{sa['namespace']}/{sa['name']}")
 
         roleBindingList.append(newRoleBinding)
-
+    print(roleBindingList)
     return roleBindingList
