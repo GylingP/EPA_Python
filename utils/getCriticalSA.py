@@ -10,6 +10,9 @@ def get_critical_sa(SAs, controlled_node):
         clusterroleescalate_flag = 0
         roleescalate_flag = 0
         
+        print(sa)
+
+
         # 创建 CriticalSA 实例
         critical_sa = CriticalSA(
             in_node=False,
