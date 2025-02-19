@@ -18,6 +18,6 @@ def load_config():
         # SSH config
         ssh_config = config.get('ssh', {})[0]
         if ssh_config:
-            os.environ['SSH_CONFIG'] = str(ssh_config)  
+            os.environ['SSH_CONFIG'] = str(ssh_config).replace("'", "\"")  
         else:
             print("Error loading SSH config")
