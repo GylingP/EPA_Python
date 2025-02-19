@@ -20,7 +20,7 @@ class SA:
 
 
 class CriticalSA:
-    def __init__(self, in_node, type, level, sa0, namespace, resource_name, roles):
+    def __init__(self, in_node, type, level, sa0, namespace='', resource_name='', roles=[]):
         self.in_node = in_node  # Whether the corresponding Pod is in node1
         self.type = type  # The type of the high permissions
         self.level = level  # cluster, namespace
