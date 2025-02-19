@@ -1,0 +1,98 @@
+{"volumes": [
+        {"name": "vault-raft", "persistentVolumeClaim": {"claimName": "vault-raft-vault-0"
+            }
+        },
+        {"name": "vault-config", "emptyDir": {"medium": "Memory", "sizeLimit": "1Mi"
+            }
+        },
+        {"name": "vault-raw-config", "secret": {"secretName": "vault-raw-config", "defaultMode": 420
+            }
+        },
+        {"name": "vault-tls", "secret": {"secretName": "vault-tls", "defaultMode": 420
+            }
+        },
+        {"name": "kube-api-access-srn8d", "projected": {"sources": [
+                    {"serviceAccountToken": {"expirationSeconds": 3607, "path": "token"
+                        }
+                    },
+                    {"configMap": {"name": "kube-root-ca.crt", "items": [
+                                {"key": "ca.crt", "path": "ca.crt"
+                                }
+                            ]
+                        }
+                    },
+                    {"downwardAPI": {"items": [
+                                {"path": "namespace", "fieldRef": {"apiVersion": "v1", "fieldPath": "metadata.namespace"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ], "defaultMode": 420
+            }
+        }
+    ], "initContainers": [
+        {"name": "config-templating", "image": "ghcr.io/bank-vaults/bank-vaults:v1.31.2", "command": ["template", "-template", "/tmp/vault-config.json:/vault/config/vault.json"
+            ], "env": [
+                {"name": "POD_NAME", "valueFrom": {"fieldRef": {"apiVersion": "v1", "fieldPath": "metadata.name"
+                        }
+                    }
+                },
+                {"name": "VAULT_LOG_LEVEL", "value": "debug"
+                },
+                {"name": "VAULT_LOG_LEVEL", "value": "debug"
+                }
+            ], "resources": {"limits": {"cpu": "200m", "memory": "512Mi"
+                }, "requests": {"cpu": "100m", "memory": "256Mi"
+                }
+            }, "volumeMounts": [
+                {"name": "vault-config", "mountPath": "/vault/config"
+                },
+                {"name": "vault-raft", "mountPath": "/vault/file"
+                },
+                {"name": "vault-raw-config", "mountPath": "/tmp"
+                },
+                {"name": "vault-tls", "mountPath": "/vault/tls"
+                },
+                {"name": "kube-api-access-srn8d", "readOnly": True, "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+                }
+            ], "terminationMessagePath": "/dev/termination-log", "terminationMessagePolicy": "File", "imagePullPolicy": "IfNotPresent"
+        }
+    ], "containers": [
+        {"name": "vault", "image": "hashicorp/vault: 1.14.1", "args": ["server"
+            ], "ports": [
+                {"name": "api-port", "containerPort": 8200, "protocol": "TCP"
+                },
+                {"name": "cluster-port", "containerPort": 8201, "protocol": "TCP"
+                }
+            ], "env": [
+                {"name": "VAULT_K8S_POD_NAME", "valueFrom": {"fieldRef": {"apiVersion": "v1", "fieldPath": "metadata.name"
+                        }
+                    }
+                },
+                {"name": "VAULT_LOG_LEVEL", "value": "debug"
+                }
+            ], "resources": {"limits": {"cpu": "200m", "memory": "512Mi"
+                }, "requests": {"cpu": "100m", "memory": "256Mi"
+                }
+            }, "volumeMounts": [
+                {"name": "vault-config", "mountPath": "/vault/config"
+                },
+                {"name": "vault-raft", "mountPath": "/vault/file"
+                },
+                {"name": "vault-tls", "mountPath": "/vault/tls"
+                },
+                {"name": "kube-api-access-srn8d", "readOnly": True, "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+                }
+            ], "livenessProbe": {"httpGet": {"path": "/v1/sys/init", "port": "api-port", "scheme": "HTTPS"
+                }, "timeoutSeconds": 1, "periodSeconds": 10, "successThreshold": 1, "failureThreshold": 3
+            }, "readinessProbe": {"httpGet": {"path": "/v1/sys/health?standbyok=true&perfstandbyok=true&drsecondarycode=299", "port": "api-port", "scheme": "HTTPS"
+                }, "timeoutSeconds": 1, "periodSeconds": 5, "successThreshold": 1, "failureThreshold": 2
+            }, "startupProbe": {"httpGet": {"path": "/v1/sys/init", "port": "api-port", "scheme": "HTTPS"
+                }, "timeoutSeconds": 1, "periodSeconds": 10, "successThreshold": 1, "failureThreshold": 18
+            }, "terminationMessagePath": "/dev/termination-log", "terminationMessagePolicy": "File", "imagePullPolicy": "IfNotPresent", "securityContext": {"capabilities": {"add": ["IPC_LOCK", "SETFCAP"
+                    ]
+                }
+            }
+        },
+        {"name": "bank-vaults", "image": "ghcr.io/bank-vaults/bank-vaults:v1.31.2", "command": ["bank-vaults", "unseal", "--init", "--raft", "--raft-leader-address", "https: //vault:8200"], "args": ["--secret-shares", "5", "--secret-threshold", "3", "--mode", "k8s", "--k8s-secret-namespace", "default", "--k8s-secret-name", "vault-unseal-keys", "--k8s-secret-labels", "app.kubernetes.io/name=vault,vault_cr=vault"], "ports": [{"name": "metrics", "containerPort": 9091, "protocol": "TCP"}], "env": [{"name": "POD_NAME", "valueFrom": {"fieldRef": {"apiVersion": "v1", "fieldPath": "metadata.name"}}}, {"name": "VAULT_ADDR", "value": "https://127.0.0.1:8200"}, {"name": "VAULT_CACERT", "value": "/vault/tls/ca.crt"}], "resources": {"limits": {"cpu": "200m", "memory": "128Mi"}, "requests": {"cpu": "100m", "memory": "64Mi"}}, "volumeMounts": [{"name": "vault-tls", "mountPath": "/vault/tls"}, {"name": "kube-api-access-srn8d", "readOnly": True, "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"}], "terminationMessagePath": "/dev/termination-log", "terminationMessagePolicy": "File", "imagePullPolicy": "IfNotPresent"}, {"name": "velero-fsfreeze", "image": "ubuntu:bionic", "command": ["/bin/bash", "-c", "sleep infinity"], "resources": {"limits": {"cpu": "50m", "memory": "32Mi"}, "requests": {"cpu": "50m", "memory": "32Mi"}}, "volumeMounts": [{"name": "vault-raft", "mountPath": "/vault/file"}, {"name": "kube-api-access-srn8d", "readOnly": True, "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"}], "terminationMessagePath": "/dev/termination-log", "terminationMessagePolicy": "File", "imagePullPolicy": "IfNotPresent", "securityContext": {"privileged": True}}], "restartPolicy": "Always", "terminationGracePeriodSeconds": 30, "dnsPolicy": "ClusterFirst", "serviceAccountName": "vault", "serviceAccount": "vault", "automountServiceAccountToken": True, "securityContext": {"fsGroup": 1000}, "hostname": "vault-0", "affinity": {}, "schedulerName": "default-scheduler", "tolerations": [{"key": "node.kubernetes.io/not-ready", "operator": "Exists", "effect": "NoExecute", "tolerationSeconds": 300}, {"key": "node.kubernetes.io/unreachable", "operator": "Exists", "effect": "NoExecute", "tolerationSeconds": 300}], "priority": 0, "enableServiceLinks": True, "preemptionPolicy": "PreemptLowerPriority"}
