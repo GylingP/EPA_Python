@@ -3,7 +3,6 @@ from .req import K8sRequestOption, api_request
 from .structure import Rule
 
 def getRulesFromRole(role):
-    # 根据角色类型构造 API 地址
     api = "/apis/rbac.authorization.k8s.io/v1"
     if "/" in role:
         # role 类型
@@ -32,8 +31,8 @@ def getRulesFromRole(role):
 
     for rule in rules:
         newRule = Rule(
-            resources=[],  # 资源
-            verbs=[]      # 动作
+            resources=[],  
+            verbs=[]   
         )
 
         resources = rule.get("resources", [])

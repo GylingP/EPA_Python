@@ -10,7 +10,6 @@ def get_critical_sa(SAs, controlled_node):
         clusterroleescalate_flag = 0
         roleescalate_flag = 0
 
-        # 创建 CriticalSA 实例
         critical_sa = CriticalSA(
             in_node=False,
             type=[],
@@ -18,18 +17,15 @@ def get_critical_sa(SAs, controlled_node):
             sa0=sa,
         )
         
-        # 遍历 SA 的 Roles
         for role_name, role in sa.roles.items():
             critical_sa.roles.append(role_name)
             
-            # 遍历角色的每个权限
             for k, v in role.items():
                 if sa.sa_pod and sa.sa_pod.node_name== controlled_node:
                     critical_sa.in_node = True
 
                 raw_type = ""
                 
-                # 判断不同类型的权限
                 if 'get' in v or '*' in v:
                     if 'secrets' in k or '*' in k:
                         raw_type = "getsecrets"
@@ -200,7 +196,6 @@ def check_restrict(k, rawType, criticalSA):
     else:
         criticalSA.level = "cluster"
 
-    # Update
     if "(" in k:
         criticalSA.resource_name = k[k.index("(")+1:k.index(")")]
     if "[" in k:

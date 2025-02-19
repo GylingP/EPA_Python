@@ -4,16 +4,16 @@ class Pod:
         self.name = name
         self.uid = uid
         self.node_name = node_name
-        self.service_account = service_account  # SaName
-        self.controll_by = controll_by  # type
+        self.service_account = service_account 
+        self.controll_by = controll_by
         self.token_mounted = token_mounted
 
 
 class SA:
     def __init__(self, name, is_mounted=False, sa_pod=None, permission=None, roles=None, role_bindings=None):
         self.is_mounted = is_mounted
-        self.name = name  # The full name: namespace/name
-        self.sa_pod = sa_pod  # Pod instance
+        self.name = name
+        self.sa_pod = sa_pod
         self.permission = permission if permission else {}
         self.roles = roles if roles else {}
         self.role_bindings = role_bindings if role_bindings else []
@@ -21,10 +21,10 @@ class SA:
 
 class CriticalSA:
     def __init__(self, in_node, type, level, sa0, namespace='', resource_name='', roles=[]):
-        self.in_node = in_node  # Whether the corresponding Pod is in node1
-        self.type = type  # The type of the high permissions
-        self.level = level  # cluster, namespace
-        self.sa0 = sa0  # SA instance
+        self.in_node = in_node  
+        self.type = type  
+        self.level = level  
+        self.sa0 = sa0  
         self.namespace = namespace
         self.resource_name = resource_name
         self.roles = roles
@@ -32,7 +32,7 @@ class CriticalSA:
 
 class CriticalSAWrapper:
     def __init__(self, crisa, type_):
-        self.crisa = crisa  # CriticalSA instance
+        self.crisa = crisa  
         self.type = type_
 
 
@@ -54,7 +54,7 @@ class Role:
     def __init__(self, namespace, name, rules):
         self.namespace = namespace
         self.name = name
-        self.rules = rules  # Rule instance
+        self.rules = rules  
 
 
 class SAtoken:
