@@ -14,7 +14,7 @@ if len(sa_binding_map) == 0:
     sa_binding_map = get_sa_binding()
 
 if len(critical_sas) == 0:
-    critical_sas = get_critical_sa(check_sa_mounted(sa_binding_map), json.loads(os.environ.get('SSH_CONFIG')).get('nodeNme',''))
+    critical_sas = get_critical_sa(check_sa_mounted(sa_binding_map), json.loads(os.environ.get("SSH_CONFIG")).get("nodeName",""))
 
 print()  # Print an empty line
 
