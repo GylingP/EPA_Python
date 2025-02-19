@@ -36,7 +36,6 @@ def get_sa_binding():
 
     # 处理 rolebindings
     for rolebinding in rolebindingList:
-        print(rolebinding.role_ref)
         rules = getRulesFromRole(rolebinding.role_ref)
         for sa in rolebinding.subject:
             if sa not in SaBindingMap:

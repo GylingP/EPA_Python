@@ -66,8 +66,8 @@ def getRolesBindings():
 
         roleKind = roleBinding["roleRef"]["kind"]
         if roleKind == "Role":
-            newRoleBinding.roleRef = newRoleBinding.namespace + "/"
-        newRoleBinding.roleRef += roleBinding["roleRef"]["name"]
+            newRoleBinding.role_ref = newRoleBinding.namespace + "/"
+        newRoleBinding.role_ref += roleBinding["roleRef"]["name"]
 
         if "subjects" in roleBinding:
             for sa in roleBinding["subjects"]:
@@ -76,5 +76,5 @@ def getRolesBindings():
                 newRoleBinding.subject.append(f"{sa['namespace']}/{sa['name']}")
 
         roleBindingList.append(newRoleBinding)
-    print(roleBindingList)
+
     return roleBindingList
