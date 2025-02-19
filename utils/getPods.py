@@ -8,8 +8,8 @@ def get_pods():
         api="/apis/v1/pods",
         method="GET"
     )
-    resp , _ = api_request(opts)
-    print(resp)
+    resp , err = api_request(opts)
+    print(err)
     try:
         resp , _ = api_request(opts)
         if resp is None:
