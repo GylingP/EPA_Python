@@ -22,11 +22,11 @@ for critical_sa in critical_sas:
     if not critical_sa.sa0.is_mounted:
         continue
     
-    print(f"[app]: {critical_sa.sa0.sapod.namespace}")
-    print(f"[component]: {critical_sa.sa0.sapod.name}")
+    print(f"[app]: {critical_sa.sa0.sa_pod.namespace}")
+    print(f"[component]: {critical_sa.sa0.sa_pod.name}")
     print(f"[SA]: {critical_sa.sa0.name}")
-    print(f"[permission]: {critical_sa.type_}")
-    print(f"[node]: {critical_sa.sa0.sapod.node_name}")
+    print(f"[permission]: {critical_sa.type}")
+    print(f"[node]: {critical_sa.sa0.sa_pod.node_name}")
     print(f"[roles/clusterRoles]: {critical_sa.roles}")
     print(f"[roleBindings]: {critical_sa.sa0.role_bindings}")
     print("-------------------------------------------")
