@@ -30,6 +30,8 @@ def getRulesFromRole(role):
 
     ruleList = []
 
+    print(rules)
+
     for rule in rules:
         newRule = Rule(
             resources=[],  # 资源
@@ -51,5 +53,7 @@ def getRulesFromRole(role):
             newRule.verbs.append(verb)
 
         ruleList.append(newRule)
+
+    print(ruleList)
 
     return ruleList
