@@ -1,14 +1,16 @@
-from .req import api_request
+from .req import K8sRequestOption,api_request
 from .structure import Pod
 import json
 
 def get_pods():
 
-    api_url = "/api/v1/pods"
-    method = "GET"
+    opts = K8sRequestOption(
+        api="/apis/rbac.authorization.k8s.io/v1/pods",
+        method="GET"
+    )
 
     try:
-        resp = api_request(api_url, method)
+        resp , _ = api_request(opts)
         if resp is None:
             raise ValueError("API request failed")
 
