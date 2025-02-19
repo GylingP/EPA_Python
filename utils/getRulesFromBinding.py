@@ -51,6 +51,4 @@ def getRulesFromRole(role):
             newRule.verbs.append(verb)
         ruleList.append(newRule)
 
-    print("111",ruleList[0].resources)
-
     return ruleList

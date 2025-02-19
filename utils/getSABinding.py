@@ -36,8 +36,8 @@ def get_sa_binding():
 
     # 处理 rolebindings
     for rolebinding in rolebindingList:
+        print(rolebinding.role_ref)
         rules = getRulesFromRole(rolebinding.role_ref)
-        print("222",rules[0])
         for sa in rolebinding.subject:
             if sa not in SaBindingMap:
                 SaBindingMap[sa] = defaultdict(list)
