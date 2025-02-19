@@ -21,12 +21,11 @@ def get_pods():
 
         for pod in pods:
             # 创建 Pod 实例
-            print(pod["spec"])
             new_pod = Pod(
                 namespace=pod["metadata"]["namespace"],
                 name=pod["metadata"]["name"],
                 uid=pod["metadata"]["uid"],
-                node_name=pod["spec"]["nodeName"],
+                node_name=pod["spec"]["containers"]["nodeName"],
                 service_account=pod["spec"].get("serviceAccountName", ""),
                 controll_by=[]
             )
