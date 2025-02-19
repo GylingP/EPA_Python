@@ -1,5 +1,5 @@
 class Pod:
-    def __init__(self, namespace, name, uid, node_name, service_account, controll_by, token_mounted):
+    def __init__(self, namespace, name, uid, node_name, service_account, controll_by, token_mounted=False):
         self.namespace = namespace
         self.name = name
         self.uid = uid
