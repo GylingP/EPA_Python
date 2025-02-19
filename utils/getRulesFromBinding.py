@@ -49,9 +49,8 @@ def getRulesFromRole(role):
         verbs = rule.get("verbs", [])
         for verb in verbs:
             newRule.verbs.append(verb)
-        print(newRule.resources)
         ruleList.append(newRule)
 
-    print(ruleList[0])
+    print("111",ruleList[0].resources)
 
     return ruleList
