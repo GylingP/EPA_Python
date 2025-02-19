@@ -24,7 +24,7 @@ def get_sa_binding():
                     role_bindings=[],
                     roles={},
                 )
-            result[sa].roleBindings.append(clusterrolebinding.name)
+            result[sa].role_bindings.append(clusterrolebinding.name)
             for rule in rules:
                 for res in rule.resources:
                     if clusterrolebinding.role_ref not in result[sa].roles:
@@ -50,7 +50,7 @@ def get_sa_binding():
             for rule in rules:
                 for res in rule.resources:
                     res = f"{res}[{rolebinding.namespace}]"  # Pod(pod1)[default]
-                    if rolebinding.role_Ref not in result[sa].roles:
+                    if rolebinding.role_ref not in result[sa].roles:
                         result[sa].roles[rolebinding.role_ref] = defaultdict(list)
                     for verb in rule.verbs:
                         result[sa].roles[rolebinding.role_ref][res].append(verb)
