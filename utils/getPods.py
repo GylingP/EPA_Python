@@ -5,7 +5,7 @@ import json
 def get_pods():
 
     opts = K8sRequestOption(
-        api="/apis/rbac.authorization.k8s.io/v1/pods",
+        api="/apis/v1/pods",
         method="GET"
     )
 
