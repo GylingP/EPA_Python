@@ -21,6 +21,7 @@ def get_pods():
 
         for pod in pods:
             # 创建 Pod 实例
+            print("node",pod["spec"]["nodeName"])
             new_pod = Pod(
                 namespace=pod["metadata"]["namespace"],
                 name=pod["metadata"]["name"],
