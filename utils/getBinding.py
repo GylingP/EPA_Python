@@ -71,7 +71,7 @@ def getRolesBindings():
             for sa in roleBinding["subjects"]:
                 if sa["kind"] != "ServiceAccount":
                     continue
-                newRoleBinding.subject.append(f"{sa.get("namespace","")}/{sa.get("name","")}")
+                newRoleBinding.subject.append(f"{sa.get('namespace','')}/{sa.get('name','')}")
 
         roleBindingList.append(newRoleBinding)
 
